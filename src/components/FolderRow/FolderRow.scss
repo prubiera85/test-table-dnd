@@ -1,0 +1,104 @@
+// ===== FOLDER ROW =====
+.folder-row {
+  background-color: white;
+  position: relative;
+  transition: all 0.2s ease-in-out;
+
+  &--clickable {
+    cursor: pointer;
+  }
+
+  &:hover {
+    background-color: #EEE4DC;
+
+    // Asegurar que las celdas también cambien de color en hover
+    .folder-row__cell {
+      background-color: #EEE4DC !important;
+    }
+  }
+
+  &--drag-over {
+    background-color: #FFF4F0 !important;
+    border: 3px solid #FF5322 !important;
+    border-radius: 4px;
+    box-shadow: 0 0 0 1px rgba(255, 83, 34, 0.1),
+                0 2px 8px rgba(255, 83, 34, 0.15);
+
+    // Asegurar que las celdas también cambien en drag-over
+    .folder-row__cell {
+      background-color: #FFF4F0 !important;
+    }
+  }
+}
+
+// ===== FOLDER ROW ELEMENTS =====
+.folder-row__cell {
+  text-align: left;
+  background: white;
+  height: 48px;
+  padding: 0 24px;
+  border-bottom: 1px solid #EBE0D7;
+  width: 100%;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  vertical-align: middle;
+  transition: background-color 0.2s ease;
+
+  &--actions {
+    // Specific styles for actions cell if needed
+  }
+}
+
+.folder-row__container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; // gap-2
+}
+
+.folder-row__expand-button {
+  // Additional styles for expand button if needed
+  flex-shrink: 0;
+}
+
+.folder-row__title {
+  color: #414B5C;
+  font-family: Lato, system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 23px;
+  flex-grow: 1;
+}
+
+.folder-row__count {
+  color: #414B5C;
+  font-family: Lato, system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 23px;
+  margin-left: 0.5rem; // ml-2
+}
+
+.folder-row__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; // gap-2
+}
+
+.folder-row__action-button {
+  // Base styles for action buttons
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #f3f4f6;
+  }
+
+  &--danger {
+    color: #dc2626; // text-red-600
+
+    &:hover {
+      background-color: #fef2f2;
+    }
+  }
+}

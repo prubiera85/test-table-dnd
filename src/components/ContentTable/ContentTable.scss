@@ -1,0 +1,246 @@
+// ===== CONTENT TABLE CONTAINER =====
+.content-table-container {
+  // Estilos removidos - estaban pisando otros estilos
+}
+
+.content-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+// ===== CONTENT TABLE =====
+.content-table {
+  width: 100%;
+  min-width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 12px 12px 0 0;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  table-layout: fixed;
+
+  thead {
+    background: #EBE0D7;
+  }
+}
+
+.content-table__header {
+  text-align: left;
+  background-color: #EBE0D7;
+  border-radius: 0;
+  border: 1px solid #EBE0D7;
+  padding: 8px 0px 8px 24px;
+  gap: 16px;
+  color: #4E4E4E;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 19px;
+  text-align: left;
+  text-transform: none;
+  letter-spacing: 0;
+  width: 100%;
+
+  &--first {
+    border-radius: 8px 0px 0px 0px;
+    width: 40%;
+  }
+
+  &--middle {
+    border-radius: 0;
+
+    &:nth-child(2) {
+      width: 20%;
+    }
+
+    &:nth-child(3) {
+      width: 30%;
+    }
+  }
+
+  &--last {
+    border-radius: 0px 8px 0px 0px;
+    width: 10%;
+  }
+}
+
+// ===== SECTION DIVIDER =====
+.section-divider {
+  background-color: #FAF7F5 !important;
+  height: 16px !important;
+
+  td {
+    padding: 0 !important;
+    border-bottom: none !important;
+    height: 16px !important;
+    background-color: #FAF7F5 !important;
+    position: relative;
+    vertical-align: middle !important;
+  }
+}
+
+.section-divider-line {
+  width: 100%;
+  height: 2px;
+  border-top: 2px dashed #9ca3af;
+  background: transparent;
+  margin: 0;
+}
+
+// ===== FOLDER SEPARATOR =====
+.folder-separator {
+  height: 8px;
+  background-color: #FAF7F5 !important;
+
+  td {
+    background-color: #FAF7F5 !important;
+    border: none !important;
+    height: 8px !important;
+    padding: 0 !important;
+  }
+}
+
+// ===== EMPTY FOLDER ROW =====
+.empty-folder-row {
+  background-color: white;
+
+  // Aplicar borde solo a primera y última celda (igual que in-folder)
+  td:first-child {
+    border-left: 12px solid #FAF7F5;
+  }
+
+  td:last-child {
+    border-right: 12px solid #FAF7F5;
+  }
+
+  td {
+    text-align: left;
+    background: white;
+    height: 48px;
+    padding: 0 24px;
+    border-bottom: 1px solid #EBE0D7;
+    width: 100%;
+  }
+}
+
+.empty-folder-row__content {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 0;
+  padding-left: 3rem; // pl-12
+  color: #6b7280;
+  font-style: italic;
+}
+
+// ===== NO CONTENT INFO =====
+.no-content-info {
+  background-color: #f8fafc;
+
+  td {
+    padding: 2rem !important;
+    background-color: transparent !important;
+    border-bottom: none !important;
+  }
+
+  span {
+    font-style: italic;
+    color: #64748b;
+  }
+}
+
+.no-content-info__content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0; // py-8
+  color: #6b7280;
+  font-size: 0.875rem; // text-sm
+}
+
+// ===== DROP ZONE =====
+.drop-padding-row {
+  background-color: white;
+
+  td {
+    padding: 0 !important;
+    background-color: white !important;
+    border-bottom: none !important;
+    height: auto !important;
+  }
+
+  &--drag-over {
+    td {
+      background-color: white !important;
+    }
+  }
+}
+
+.drop-zone-area {
+  height: 60px;
+  width: calc(100% - 48px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border: 2px dashed #9ca3af;
+  border-radius: 8px;
+  margin: 1rem 24px;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+
+  &--drag-over {
+    border-color: #FF5322;
+    background-color: white;
+
+    .drop-zone-area__hint {
+      color: #E04E00;
+      font-weight: 500;
+    }
+  }
+}
+
+.drop-zone-area__hint {
+  color: #9ca3af;
+  font-size: 0.75rem;
+  font-style: italic;
+  text-align: center;
+  pointer-events: none;
+}
+
+// ===== DRAG PREVIEW =====
+.drag-preview {
+  background: white;
+  border: 2px solid #FF5322;
+  border-radius: 6px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  cursor: grabbing;
+  opacity: 0.95;
+  overflow: hidden;
+  width: fit-content;
+  display: inline-block;
+}
+
+.drag-preview__table {
+  width: max-content;
+  border-collapse: separate;
+  border-spacing: 0;
+
+  // Asegurar que se vea igual que la tabla original
+  tbody tr {
+    background: white !important;
+
+    td {
+      background: white !important;
+      border-bottom: none !important; // Sin borde inferior en preview
+      white-space: nowrap; // Evitar que el contenido se corte
+    }
+  }
+}
+
+// ===== OCULTAR ELEMENTO ORIGINAL DURANTE DRAG =====
+.content-row--dragging {
+  opacity: 0 !important;
+}

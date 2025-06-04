@@ -1,0 +1,140 @@
+// ===== CONTENT ROW =====
+.content-row {
+  background-color: white;
+  position: relative;
+  border-bottom: 1px solid #EBE0D7;
+  width: 100%;
+
+  &:hover {
+    background-color: #f9fafb;
+  }
+
+  &--in-folder {
+    background-color: #f8fafc;
+
+    // Aplicar borde solo a primera y última celda
+    .content-row__cell:first-child {
+      border-left: 12px solid #FAF7F5;
+    }
+
+    .content-row__cell:last-child {
+      border-right: 12px solid #FAF7F5;
+    }
+  }
+
+  &--dragging {
+    opacity: 0.8;
+    background-color: #f0f9ff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: rotate(2deg);
+  }
+}
+
+// ===== CONTENT ROW ELEMENTS =====
+.content-row__cell {
+  text-align: left;
+  background: #FFFEFD;
+  height: 48px;
+  padding: 0 24px;
+  border-bottom: 1px solid #EBE0D7;
+  width: 100%;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  vertical-align: middle;
+
+  &--actions {
+    // Specific styles for actions cell if needed
+  }
+}
+
+.content-row__container {
+  display: flex;
+  align-items: center;
+}
+
+.content-row__drag-handle {
+  cursor: grab;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #f3f4f6;
+  }
+
+  &:active {
+    cursor: grabbing;
+  }
+}
+
+.content-row__drag-icon {
+  color: #9ca3af;
+}
+
+.content-row__icon-container {
+  // Resource icon circle styles
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(255, 193, 167, 0.40);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  &--with-drag {
+    margin-left: 0.75rem; // ml-3
+  }
+
+  &--no-drag {
+    margin-left: 0;
+  }
+}
+
+.content-row__icon {
+  color: #FF5322;
+}
+
+.content-row__title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 500;
+  color: #111827; // text-gray-900
+  margin-left: 0.5rem; // ml-2
+}
+
+.content-row__availability {
+  color: #4b5563; // text-gray-600
+  font-weight: 500;
+}
+
+.content-row__owner {
+  display: flex;
+  align-items: center;
+  font-size: 0.875rem; // text-sm
+  color: #6b7280; // text-gray-500
+}
+
+.content-row__owner-circle {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.content-row__owner-info {
+  margin-left: 0.5rem; // ml-2
+}
+
+.content-row__owner-name {
+  font-weight: 500;
+  color: #1f2937; // text-gray-800
+  font-size: 0.875rem; // text-sm
+}
+
+.content-row__owner-date {
+  font-size: 0.75rem; // text-xs
+  color: #6b7280; // text-gray-500
+  margin-top: 0.125rem; // mt-half equivalent
+}

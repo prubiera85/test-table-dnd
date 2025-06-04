@@ -1,0 +1,120 @@
+// ===== GENERIC TABLE STYLES =====
+.table-container {
+  background-color: transparent;
+  box-shadow: none;
+  border: none;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+
+  .table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .table {
+    width: 100%;
+    min-width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    table-layout: fixed;
+  }
+
+  .table th {
+    background-color: #EBE0D7;
+    border-radius: 0;
+    border: 1px solid #EBE0D7;
+    padding: 8px 0px 8px 24px;
+    gap: 16px;
+    color: #4E4E4E;
+    font-family: Inter, system-ui, sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 19px;
+    text-align: left;
+    text-transform: none;
+    letter-spacing: 0;
+    width: 100%;
+
+    &:first-child {
+      border-radius: 8px 0px 0px 0px;
+      width: 40%;
+    }
+
+    &:nth-child(2) {
+      border-radius: 0;
+      width: 20%;
+    }
+
+    &:nth-child(3) {
+      border-radius: 0;
+      width: 30%;
+    }
+
+    &:last-child {
+      border-radius: 0px 8px 0px 0px;
+      width: 10%;
+    }
+  }
+
+  .table td:not(.section-divider td) {
+    border-bottom: 1px solid #EBE0D7 !important;
+    background: #FFFEFD !important;
+    height: 48px !important;
+    padding: 0 24px !important;
+    font-size: 0.9375rem !important;
+    text-align: left !important;
+    line-height: 1.5 !important;
+    vertical-align: middle !important;
+    width: 100% !important;
+  }
+}
+
+// ===== DRAG AND DROP GENERIC STYLES =====
+.drag-handle {
+  cursor: grab;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #f3f4f6;
+  }
+
+  &:active {
+    cursor: grabbing;
+  }
+}
+
+.drop-zone {
+  border-top: 1px solid #e5e7eb;
+  padding: 1rem;
+  text-align: center;
+  font-size: 0.875rem;
+  color: #6b7280;
+  transition: all 0.2s;
+
+  &.active {
+    background-color: #eff6ff;
+    border-color: #bfdbfe;
+  }
+}
+
+// ===== DROP FEEDBACK =====
+.drop-feedback {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #3b82f6;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+  pointer-events: none;
+}

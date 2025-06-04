@@ -1,0 +1,85 @@
+// ===== LOADING CONTAINER =====
+.loading-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  width: 100%;
+  padding: 2rem;
+}
+
+.loading-container-fullscreen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(4px);
+  z-index: 9999;
+}
+
+// ===== LOADING CONTENT =====
+.loading-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+// ===== LOADING SPINNER =====
+.loading-spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &.loading-spinner-sm .spinner-ring {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-width: 2px;
+  }
+
+  &.loading-spinner-md .spinner-ring {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-width: 3px;
+  }
+
+  &.loading-spinner-lg .spinner-ring {
+    width: 4rem;
+    height: 4rem;
+    border-width: 4px;
+  }
+}
+
+.spinner-ring {
+  border: 3px solid #f3f4f6;
+  border-top-color: #FF5322;
+  border-radius: 50%;
+  animation: loading-spin 1s linear infinite;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+// ===== LOADING MESSAGE =====
+.loading-message {
+  color: #4B5563;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin: 0;
+  text-align: center;
+  font-family: Inter, system-ui, sans-serif;
+}
+
+// ===== ANIMATIONS =====
+@keyframes loading-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
