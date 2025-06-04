@@ -6,19 +6,34 @@
   width: 100%;
 
   &:hover {
-    background-color: #f9fafb;
+    background-color: #EEE4DC;
+
+    .content-row__cell {
+      background-color: #EEE4DC !important;
+    }
+
+    .content-row__drag-handle {
+      opacity: 1;
+    }
   }
 
   &--in-folder {
     background-color: #f8fafc;
 
-    // Aplicar borde solo a primera y última celda
     .content-row__cell:first-child {
       border-left: 12px solid #FAF7F5;
     }
 
     .content-row__cell:last-child {
       border-right: 12px solid #FAF7F5;
+    }
+
+    &:hover {
+      background-color: #EEE4DC;
+
+      .content-row__cell {
+        background-color: #EEE4DC !important;
+      }
     }
   }
 
@@ -33,7 +48,7 @@
 // ===== CONTENT ROW ELEMENTS =====
 .content-row__cell {
   text-align: left;
-  background: #FFFEFD;
+  background: white;
   height: 48px;
   padding: 0 24px;
   border-bottom: 1px solid #EBE0D7;
@@ -41,6 +56,7 @@
   font-size: 0.9375rem;
   line-height: 1.5;
   vertical-align: middle;
+  transition: background-color 0.2s ease;
 
   &--actions {
     // Specific styles for actions cell if needed
@@ -56,7 +72,8 @@
   cursor: grab;
   padding: 0.25rem;
   border-radius: 0.25rem;
-  transition: background-color 0.2s;
+  transition: all 0.2s ease;
+  opacity: 0;
 
   &:hover {
     background-color: #f3f4f6;
