@@ -89,16 +89,7 @@
     border: none;
     background: transparent;
     cursor: pointer;
-    transition: background-color 0.2s;
     min-width: auto;
-
-    &:hover {
-      background-color: #f3f4f6;
-    }
-
-    &.btn-icon-danger:hover {
-      background-color: #fef2f2;
-    }
 
     // Icon button specific styles
     svg {
