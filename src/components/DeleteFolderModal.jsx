@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import Modal from './Modal/Modal';
-import Button from './Button/Button';
+import Modal from './Modal';
+import Button from './Button';
 
 /**
  * Modal for deleting a folder with content handling options
  * @param {Object} props - Component props
  * @param {boolean} props.isOpen - Whether the modal is open
  * @param {Function} props.onClose - Function to close the modal
- * @param {Function} props.onSubmit - Function called when deletion is confirmed
+ * @param {Function} props.onDeleteFolder - Function called when deletion is confirmed
  * @param {Object} props.folder - Folder object to delete
  * @param {boolean} props.isLoading - Whether the form is in loading state
  */
 const DeleteFolderModal = ({
   isOpen,
   onClose,
-  onSubmit,
+  onDeleteFolder,
   folder,
   isLoading = false
 }) => {
@@ -30,7 +30,7 @@ const DeleteFolderModal = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (folder) {
-      onSubmit(folder.id, deleteOption);
+      onDeleteFolder(folder.id, deleteOption);
     }
   };
 

@@ -12,42 +12,30 @@ import {
 } from "@dnd-kit/core";
 import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 
-import { useTableData } from "../../hooks/useTableData";
-import Header from "../Header";
 import FolderRow from "../FolderRow";
 import ContentRow from "../ContentRow";
-import CreateFolderModal from "../CreateFolderModal";
-import RenameFolderModal from "../RenameFolderModal";
-import DeleteFolderModal from "../DeleteFolderModal";
-import Loading from "../Loading";
-import ErrorState from "../ErrorState";
 import './ContentTable.scss';
 
 /**
  * Main table component for displaying hierarchical content
+ * @param {Object} props - Component props
+ * @param {Object} props.data - Table data with folders and unassignedContents
+ * @param {Array} props.tableRows - Processed table rows
+ * @param {Set} props.expandedFolders - Set of expanded folder IDs
+ * @param {Function} props.onToggleFolderExpansion - Handler for toggling folder expansion
+ * @param {Function} props.onMoveContent - Handler for moving content
+ * @param {Function} props.onRenameFolder - Handler for renaming folders
+ * @param {Function} props.onDeleteFolder - Handler for deleting folders
+ * @returns {JSX.Element}
  */
-const ContentTable = () => {
-  const {
-    data,
-    isLoading,
-    isError,
-    createFolder,
-    renameFolder,
-    deleteFolder,
-    moveContent,
-    expandedFolders,
-    toggleFolderExpansion,
-  } = useTableData();
-
-  // Modal states
-  const [showCreateModal, setShowCreateModal] = React.useState(false);
-  const [showRenameModal, setShowRenameModal] = React.useState(false);
-  const [showDeleteModal, setShowDeleteModal] = React.useState(false);
-  const [selectedFolder, setSelectedFolder] = React.useState(null);
-  const [isCreating, setIsCreating] = React.useState(false);
-  const [isRenaming, setIsRenaming] = React.useState(false);
-  const [isDeleting, setIsDeleting] = React.useState(false);
-
+const ContentTable = ({
+  data,
+  expandedFolders,
+  onToggleFolderExpansion,
+  onMoveContent,
+  onRenameFolder,
+  onDeleteFolder
+}) => {
   // Drag overlay state
   const [activeItem, setActiveItem] = React.useState(null);
 
@@ -65,64 +53,6 @@ const ContentTable = () => {
     }),
     useSensor(KeyboardSensor, {})
   );
-
-  // Early returns after all hooks
-  if (isLoading) {
-    return <Loading message="Cargando contenido..." size="md" />;
-  }
-
-  if (isError) {
-    return <ErrorState message="Error al cargar el contenido. Por favor, inténtalo de nuevo." />;
-  }
-
-  const handleCreateFolder = async (folderName) => {
-    setIsCreating(true);
-    try {
-      await createFolder(folderName);
-      setShowCreateModal(false);
-    } catch (error) {
-      console.error("Error creating folder:", error);
-    } finally {
-      setIsCreating(false);
-    }
-  };
-
-  const handleRenameFolder = async (folderId, newName) => {
-    setIsRenaming(true);
-    try {
-      await renameFolder(folderId, newName);
-      setShowRenameModal(false);
-      setSelectedFolder(null);
-    } catch (error) {
-      console.error("Error renaming folder:", error);
-    } finally {
-      setIsRenaming(false);
-    }
-  };
-
-  const handleDeleteFolder = async (folderId, deleteOption) => {
-    setIsDeleting(true);
-    try {
-      const deleteContents = deleteOption === "delete";
-      await deleteFolder(folderId, deleteContents);
-      setShowDeleteModal(false);
-      setSelectedFolder(null);
-    } catch (error) {
-      console.error("Error deleting folder:", error);
-    } finally {
-      setIsDeleting(false);
-    }
-  };
-
-  const openRenameModal = (folder) => {
-    setSelectedFolder(folder);
-    setShowRenameModal(true);
-  };
-
-  const openDeleteModal = (folder) => {
-    setSelectedFolder(folder);
-    setShowDeleteModal(true);
-  };
 
   const handleDragStart = (event) => {
     const { active } = event;
@@ -164,10 +94,10 @@ const ContentTable = () => {
 
     if (targetFolder) {
       // Move content to folder
-      moveContent(activeContent.id, targetFolder.id);
+      onMoveContent(activeContent.id, targetFolder.id);
     } else if (over.id === 'unassigned-zone') {
       // Move content to unassigned (outside any folder) - only from the specific drop zone
-      moveContent(activeContent.id, null);
+      onMoveContent(activeContent.id, null);
     }
     // Ignore all other drops - do nothing if not dropping on a folder or the specific unassigned zone
   };
@@ -180,8 +110,6 @@ const ContentTable = () => {
       onDragEnd={handleDragEnd}
       modifiers={[restrictToWindowEdges]}
     >
-      <Header onCreateFolder={() => setShowCreateModal(true)} />
-
       <div className="content-table-container">
         <div className="content-table-wrapper">
           <table className="content-table">
@@ -195,50 +123,30 @@ const ContentTable = () => {
             </thead>
             <tbody>
               {/* Render folders */}
-              {data.folders.map((folder, index) => (
+              {data.folders.map((folder) => (
                 <React.Fragment key={folder.id}>
                   <FolderRow
                     folder={folder}
                     isExpanded={expandedFolders.has(folder.id)}
-                    onToggleExpand={() => toggleFolderExpansion(folder.id)}
-                    onRename={() => openRenameModal(folder)}
-                    onDelete={() => openDeleteModal(folder)}
+                    onToggle={() => onToggleFolderExpansion(folder.id)}
+                    onRename={() => onRenameFolder(folder)}
+                    onDelete={() => onDeleteFolder(folder)}
                   />
-
-                  {expandedFolders.has(folder.id) && (
-                    <>
-                      {folder.contents && folder.contents.length > 0 ? (
-                        folder.contents.map((content) => (
-                          <ContentRow
-                            key={content.id}
-                            content={content}
-                            isInFolder={true}
-                            canDrag={true}
-                            isDragging={activeItem?.id === content.id}
-                          />
-                        ))
-                      ) : (
-                        <tr className="empty-folder-row">
-                          <td colSpan={4}>
-                            <div className="empty-folder-row__content">
-                              <span>La carpeta está vacía</span>
-                            </div>
-                          </td>
-                        </tr>
-                      )}
-                    </>
-                  )}
-
-                  {/* Separador entre carpetas (excepto después de la última) */}
-                  {index < data.folders.length - 1 && (
-                    <tr className="folder-separator">
-                      <td colSpan={4}></td>
-                    </tr>
-                  )}
+                  {/* Render folder contents if expanded */}
+                  {expandedFolders.has(folder.id) &&
+                    folder.contents.map((content) => (
+                      <ContentRow
+                        key={content.id}
+                        content={content}
+                        isInFolder={true}
+                        canDrag={true}
+                        isDragging={activeItem?.id === content.id}
+                      />
+                    ))}
                 </React.Fragment>
               ))}
 
-              {/* Unassigned section - now just rows, not separate tbody */}
+              {/* Unassigned section */}
               <UnassignedSection
                 foldersCount={data.folders.length}
                 contents={data.unassignedContents}
@@ -249,34 +157,8 @@ const ContentTable = () => {
         </div>
       </div>
 
-      {/* Drag Overlay - renderiza fuera del contexto de la tabla */}
-      <DragOverlay>
-        {activeItem ? <DragPreview item={activeItem} /> : null}
-      </DragOverlay>
-
-      {/* Modals */}
-      <CreateFolderModal
-        isOpen={showCreateModal}
-        onClose={() => setShowCreateModal(false)}
-        onSubmit={handleCreateFolder}
-        isLoading={isCreating}
-      />
-
-      <RenameFolderModal
-        isOpen={showRenameModal}
-        onClose={() => setShowRenameModal(false)}
-        onSubmit={handleRenameFolder}
-        folder={selectedFolder}
-        isLoading={isRenaming}
-      />
-
-      <DeleteFolderModal
-        isOpen={showDeleteModal}
-        onClose={() => setShowDeleteModal(false)}
-        onSubmit={handleDeleteFolder}
-        folder={selectedFolder}
-        isLoading={isDeleting}
-      />
+      {/* Drag Overlay */}
+      <DragOverlay>{activeItem ? <DragPreview item={activeItem} /> : null}</DragOverlay>
     </DndContext>
   );
 };

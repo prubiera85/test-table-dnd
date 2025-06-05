@@ -1,0 +1,37 @@
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  padding: 3rem 1rem;
+  text-align: center;
+
+  &__content {
+    max-width: 400px;
+  }
+
+  &__icon {
+    margin-bottom: 1.5rem;
+    opacity: 0.6;
+  }
+
+  &__title {
+    font-family: 'Lato', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #414B5C;
+    margin: 0 0 0.75rem 0;
+  }
+
+  &__description {
+    font-size: 1rem;
+    color: #6B7280;
+    margin: 0 0 2rem 0;
+    line-height: 1.5;
+  }
+
+  &__button {
+    margin: 0 auto;
+  }
+}

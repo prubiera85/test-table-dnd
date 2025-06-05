@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
-import Modal from './Modal/Modal';
-import Button from './Button/Button';
+import Modal from './Modal';
+import Button from './Button';
 
 /**
  * Modal for creating a new folder
  * @param {Object} props - Component props
  * @param {boolean} props.isOpen - Whether the modal is open
  * @param {Function} props.onClose - Function to close the modal
- * @param {Function} props.onSubmit - Function called when form is submitted
+ * @param {Function} props.onCreateFolder - Function called when form is submitted
  * @param {boolean} props.isLoading - Whether the form is in loading state
  */
 const CreateFolderModal = ({
   isOpen,
   onClose,
-  onSubmit,
+  onCreateFolder,
   isLoading = false
 }) => {
   const [folderName, setFolderName] = useState('');
@@ -21,7 +21,7 @@ const CreateFolderModal = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (folderName.trim()) {
-      onSubmit(folderName.trim());
+      onCreateFolder(folderName.trim());
       setFolderName(''); // Reset form
     }
   };

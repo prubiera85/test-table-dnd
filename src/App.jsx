@@ -1,16 +1,11 @@
-import ContentTable from './components/ContentTable';
+import React from 'react';
+import { MyClassRoomsView } from './components/MyClassRoomsView';
 
 /**
  * Main App component
  */
 function App() {
-  return (
-    <div className="min-h-screen">
-      <div className="container">
-        <ContentTable />
-      </div>
-    </div>
-  );
+  return <MyClassRoomsView />;
 }
 
 export default App;

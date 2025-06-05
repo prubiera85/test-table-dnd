@@ -1,6 +1,7 @@
 import React from 'react';
-import Button from './Button/Button';
+import Button from './Button';
 import { PlusIcon } from './Icons';
+import './Header.scss';
 
 /**
  * Header component with actions for the content table
@@ -9,15 +10,19 @@ import { PlusIcon } from './Icons';
  */
 const Header = ({ onCreateFolder }) => {
   return (
-    <div className="mb-6 flex justify-end">
-      <Button
-        onClick={onCreateFolder}
-        className="flex items-center gap-2"
-      >
-        <PlusIcon size={16} />
-        Nueva carpeta
-      </Button>
-    </div>
+    <header className="header">
+      <div className="header__container">
+        <div className="header__actions">
+          <Button
+            onClick={onCreateFolder}
+            className="header__create-button"
+          >
+            <PlusIcon size={16} />
+            Nueva carpeta
+          </Button>
+        </div>
+      </div>
+    </header>
   );
 };
 

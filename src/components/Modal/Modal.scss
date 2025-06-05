@@ -72,6 +72,12 @@
   gap: 1.5rem;
 }
 
+.modal-form-inline {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .modal-form-group {
   display: flex;
   flex-direction: column;
@@ -83,6 +89,11 @@
   color: #374151;
   font-size: 0.875rem;
   margin-bottom: 0.25rem;
+}
+
+.modal-form-input {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
 }
 
 .modal-form-actions {

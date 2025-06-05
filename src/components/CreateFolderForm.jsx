@@ -40,14 +40,14 @@ const CreateFolderForm = ({ onSubmit, onCancel }) => {
 
   return (
     <div className="create-folder-form">
-      <form onSubmit={handleSubmit} className="flex items-center gap-2">
+      <form onSubmit={handleSubmit} className="modal-form-inline">
         <input
           type="text"
           value={folderName}
           onChange={(e) => setFolderName(e.target.value)}
           onKeyDown={handleKeyPress}
           placeholder="Nombre de la carpeta"
-          className="form-input text-sm"
+          className="form-input modal-form-input"
           autoFocus
           disabled={isLoading}
           minLength={1}
