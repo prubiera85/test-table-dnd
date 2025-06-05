@@ -1,15 +1,112 @@
-import { useState, useCallback, useMemo } from 'react';
-import { mockData, folderApi, contentApi } from '../api/mockApi';
+import { useState, useCallback, useMemo, useEffect } from 'react';
+import { folderApi, contentApi } from '../api/mockApi';
+import React from 'react';
+
+/**
+ * Transforms backend data structure to our internal format
+ * @param {Array} backendData - Array of items from backend
+ * @returns {Object} Transformed data with folders and unassignedContents
+ */
+const transformBackendData = (backendData) => {
+  const folders = [];
+  const unassignedContents = [];
+
+  backendData.forEach(item => {
+    if (item.type === 'folder') {
+      // Transform folder
+      const folder = {
+        id: item.id,
+        name: item.name,
+        isExpanded: false,
+        contents: (item.items || []).map(fileItem => transformFile(fileItem))
+      };
+      folders.push(folder);
+    } else if (item.type === 'file') {
+      // Transform unassigned file
+      const file = transformFile(item);
+      unassignedContents.push(file);
+    }
+  });
+
+  return {
+    folders,
+    unassignedContents
+  };
+};
+
+/**
+ * Transforms a file item from backend format to internal format
+ * @param {Object} fileItem - File item from backend
+ * @returns {Object} Transformed file item
+ */
+const transformFile = (fileItem) => {
+  // Map is_teacher_only to availability
+  const availability = fileItem.is_teacher_only || fileItem.content?.is_teacher_only
+    ? 'Profesor'
+    : 'Estudiantes';
+
+  // Use created_by.name for owner
+  const owner = fileItem.created_by?.name || 'Desconocido';
+
+  // Use content.name for title, fallback to a default
+  const title = fileItem.content?.name || 'Sin título';
+
+  // Use content.type for our type
+  const type = fileItem.content?.type || 'document';
+
+  // Format date (assuming created_at is ISO string)
+  const date = fileItem.created_at
+    ? new Date(fileItem.created_at).toLocaleDateString('es-ES')
+    : '';
+
+  return {
+    id: fileItem.id,
+    title,
+    type,
+    availability,
+    owner,
+    date,
+    folderId: null // Will be set based on context
+  };
+};
 
 /**
  * Custom hook to manage table data state and operations
  * @returns {Object} Hook return object with data and operations
  */
 export const useTableData = () => {
-  const [data, setData] = useState(mockData);
-  const [isLoading, setIsLoading] = useState(false);
+  const [data, setData] = useState({ folders: [], unassignedContents: [] });
+  const [isLoading, setIsLoading] = useState(true); // Start with loading true
   const [isError, setIsError] = useState(false);
   const [expandedFolders, setExpandedFolders] = useState(new Set());
+
+  // Mock user ID for testing
+  const mockUserId = "mock-user-123";
+
+  /**
+   * Loads data from API endpoint
+   * @param {string} search - Optional search term
+   */
+  const loadData = useCallback(async (search = '') => {
+    setIsLoading(true);
+    setIsError(false);
+
+    try {
+      const backendData = await contentApi.getMyLibraryItems(search);
+      const transformedData = transformBackendData(backendData);
+      setData(transformedData);
+    } catch (err) {
+      console.error('Error loading data:', err);
+      setIsError(true);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  // Load data on mount
+  useEffect(() => {
+    loadData();
+  }, [loadData]);
 
   /**
    * Creates a new folder
@@ -22,10 +119,15 @@ export const useTableData = () => {
     setIsError(false);
 
     try {
-      const newFolder = await folderApi.createFolder(name.trim());
+      const newFolder = await folderApi.createFolder(mockUserId, { name: name.trim() });
       setData(prev => ({
         ...prev,
-        folders: [...prev.folders, newFolder]
+        folders: [...prev.folders, {
+          id: newFolder.id,
+          name: newFolder.name,
+          isExpanded: false,
+          contents: []
+        }]
       }));
     } catch (err) {
       setIsError(true);
@@ -47,7 +149,7 @@ export const useTableData = () => {
     setIsError(false);
 
     try {
-      await folderApi.renameFolder(folderId, newName.trim());
+      await folderApi.renameFolder(mockUserId, folderId, { name: newName.trim() });
       setData(prev => ({
         ...prev,
         folders: prev.folders.map(folder =>
@@ -74,7 +176,7 @@ export const useTableData = () => {
     setIsError(false);
 
     try {
-      await folderApi.deleteFolder(folderId, deleteContents);
+      await folderApi.deleteFolder(mockUserId, folderId, deleteContents);
 
       setData(prev => {
         const folderToDelete = prev.folders.find(f => f.id === folderId);
@@ -139,7 +241,7 @@ export const useTableData = () => {
     setIsError(false);
 
     try {
-      await contentApi.moveContent(contentId, targetFolderId);
+      await contentApi.assignContentToFolder(mockUserId, contentId, { folderId: targetFolderId });
 
       setData(prev => {
         // Find content in current location
@@ -251,5 +353,9 @@ export const useTableData = () => {
     deleteFolder,
     toggleFolderExpansion,
     moveContent,
+    loadData,
   };
 };
+
+// Export transform function for external use
+export { transformBackendData };
