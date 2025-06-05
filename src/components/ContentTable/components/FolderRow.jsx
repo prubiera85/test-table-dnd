@@ -1,8 +1,6 @@
 import React from 'react';
 import { useDroppable } from '@dnd-kit/core';
-import { ExpandIcon, EditIcon, DeleteIcon } from '../../Icons';
-import { classNames } from '../../../utils/classNames';
-import Button from '../../Button';
+import clsx from 'clsx';
 import './FolderRow.scss';
 
 /**
@@ -38,7 +36,7 @@ const FolderRow = ({
     <tr
       ref={setNodeRef}
       onClick={handleRowClick}
-      className={classNames(
+      className={clsx(
         'folder-row',
         'folder-row--clickable',
         isOver && 'folder-row--drag-over'
@@ -46,14 +44,12 @@ const FolderRow = ({
     >
       <td className="folder-row__cell">
         <div className="folder-row__container">
-          <Button
-            variant="icon"
+          <span
+            className="folder-row__expand-text"
             onClick={(e) => handleActionClick(e, onToggle)}
-            ariaLabel={isExpanded ? 'Collapse folder' : 'Expand folder'}
-            className="folder-row__expand-button"
           >
-            <ExpandIcon isExpanded={isExpanded} size={16} />
-          </Button>
+            {isExpanded ? '−' : '+'}
+          </span>
 
           <span className="folder-row__title">{folder.name}</span>
 
@@ -75,23 +71,19 @@ const FolderRow = ({
 
       <td className="folder-row__cell folder-row__cell--actions">
         <div className="folder-row__actions">
-          <Button
-            variant="icon"
+          <span
+            className="folder-row__action-text"
             onClick={(e) => handleActionClick(e, onRename)}
-            ariaLabel="Rename folder"
-            className="folder-row__action-button"
           >
-            <EditIcon size={14} />
-          </Button>
+            edit
+          </span>
 
-          <Button
-            variant="icon"
+          <span
+            className="folder-row__action-text folder-row__action-text--danger"
             onClick={(e) => handleActionClick(e, onDelete)}
-            className="folder-row__action-button folder-row__action-button--danger"
-            ariaLabel="Delete folder"
           >
-            <DeleteIcon size={14} />
-          </Button>
+            del
+          </span>
         </div>
       </td>
     </tr>

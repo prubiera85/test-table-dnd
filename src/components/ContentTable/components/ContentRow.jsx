@@ -1,6 +1,5 @@
 import { useDraggable } from '@dnd-kit/core';
-import { ContentIcon, DragIcon } from '../../Icons';
-import { classNames } from '../../../utils/classNames';
+import clsx from 'clsx';
 import './ContentRow.scss';
 
 /**
@@ -58,7 +57,7 @@ const ContentRow = ({
     <tr
       ref={setNodeRef}
       style={style}
-      className={classNames(
+      className={clsx(
         'content-row',
         isInFolder && 'content-row--in-folder',
         isDragging && 'content-row--dragging'
@@ -72,16 +71,9 @@ const ContentRow = ({
               {...attributes}
               {...listeners}
             >
-              <DragIcon size={14} className="content-row__drag-icon" />
+              <span className="content-row__drag-symbol">⋮⋮</span>
             </div>
           )}
-
-          <div className={classNames(
-            'content-row__icon-container',
-            canDrag ? 'content-row__icon-container--with-drag' : 'content-row__icon-container--no-drag'
-          )}>
-            <ContentIcon type={content.type} size={16} className="content-row__icon" />
-          </div>
 
           <span className="content-row__title">{content.title}</span>
         </div>

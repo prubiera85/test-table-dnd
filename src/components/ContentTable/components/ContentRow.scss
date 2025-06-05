@@ -74,14 +74,18 @@
   border-radius: 0.25rem;
   transition: all 0.2s ease;
   opacity: 0;
+  margin-right: 0.5rem;
 
   &:active {
     cursor: grabbing;
   }
 }
 
-.content-row__drag-icon {
+.content-row__drag-symbol {
   color: #9ca3af;
+  font-size: 14px;
+  line-height: 1;
+  user-select: none;
 }
 
 .content-row__icon-container {
@@ -114,7 +118,6 @@
   white-space: nowrap;
   font-weight: 500;
   color: #111827; // text-gray-900
-  margin-left: 0.5rem; // ml-2
 }
 
 .content-row__availability {

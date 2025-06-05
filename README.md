@@ -14,6 +14,7 @@ Una aplicación React para organizar contenido educativo en carpetas usando drag
 
 - **React 19** - Framework principal
 - **@dnd-kit** - Sistema de drag & drop
+- **clsx** - Utilidad para concatenar clases CSS
 - **Lucide React** - Iconos
 - **Vite** - Build tool y servidor de desarrollo
 
@@ -21,25 +22,40 @@ Una aplicación React para organizar contenido educativo en carpetas usando drag
 
 ```
 src/
-├── api/                    # API simulada
+├── api/                              # API simulada
 │   └── mockApi.js
-├── components/            # Componentes React
-│   ├── ContentTable.jsx  # Componente principal de tabla
-│   ├── FolderRow.jsx     # Fila de carpeta
-│   ├── ContentRow.jsx    # Fila de contenido
-│   ├── Modal.jsx         # Componente base de modal
-│   ├── CreateFolderModal.jsx # Modal crear carpeta
-│   ├── RenameFolderModal.jsx # Modal renombrar carpeta
-│   ├── DeleteFolderModal.jsx # Modal eliminar carpeta
-│   ├── Button.jsx        # Componente de botón reutilizable
-│   └── Icons.jsx         # Iconos reutilizables
-├── hooks/                 # Hooks personalizados
-│   └── useTableData.js   # Hook para manejo de datos
-├── styles/                # Estilos SCSS
-│   ├── utilities.scss    # Clases utilitarias
-│   └── index.scss        # Estilos principales
-└── utils/                 # Utilidades
-    └── classNames.js
+├── components/                       # Componentes React
+│   ├── MyClassRoomsView/            # Vista principal
+│   │   ├── MyClassRoomsView.jsx
+│   │   ├── MyClassRoomsView.scss
+│   │   └── useMyClassRoomsView.js
+│   ├── MyClassroomsViewMyLibrary/   # Vista de biblioteca
+│   │   ├── MyClassroomsViewMyLibrary.jsx
+│   │   ├── MyClassroomsViewMyLibrary.scss
+│   │   └── useMyClassroomsViewMyLibrary.js
+│   ├── ContentTable/                # Tabla de contenido
+│   │   ├── ContentTable.jsx
+│   │   ├── ContentTable.scss
+│   │   ├── useContentTable.js
+│   │   └── components/
+│   │       ├── FolderRow.jsx        # Fila de carpeta
+│   │       ├── FolderRow.scss
+│   │       ├── ContentRow.jsx       # Fila de contenido
+│   │       └── ContentRow.scss
+│   ├── EmptyState/                  # Estado vacío
+│   ├── Loading/                     # Componente de carga
+│   ├── ErrorState/                  # Estado de error
+│   ├── Modal/                       # Componente base de modal
+│   ├── Button/                      # Componente de botón reutilizable
+│   ├── CreateFolderModal.jsx        # Modal crear carpeta
+│   ├── RenameFolderModal.jsx        # Modal renombrar carpeta
+│   ├── DeleteFolderModal.jsx        # Modal eliminar carpeta
+│   ├── Header.jsx                   # Cabecera
+│   └── Icons.jsx                    # Iconos reutilizables
+├── hooks/                           # Hooks compartidos
+│   └── useTableData.js             # Hook para transformar datos
+└── styles/                          # Estilos SCSS
+    └── index.scss                   # Estilos principales
 ```
 
 ## Instalación y Ejecución

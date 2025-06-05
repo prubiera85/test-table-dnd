@@ -123,8 +123,15 @@ const ContentTable = ({
             </thead>
             <tbody>
               {/* Render folders */}
-              {data.folders.map((folder) => (
+              {data.folders.map((folder, index) => (
                 <React.Fragment key={folder.id}>
+                  {/* Add separator between folders (except before the first one) */}
+                  {index > 0 && (
+                    <tr className="folder-separator">
+                      <td colSpan={4}></td>
+                    </tr>
+                  )}
+
                   <FolderRow
                     folder={folder}
                     isExpanded={expandedFolders.has(folder.id)}

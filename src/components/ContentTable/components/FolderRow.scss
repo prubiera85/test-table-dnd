@@ -45,7 +45,9 @@
   transition: background-color 0.2s ease;
 
   &--actions {
-    // Specific styles for actions cell if needed
+    width: 80px;
+    min-width: 80px;
+    padding: 0 12px;
   }
 }
 
@@ -55,9 +57,22 @@
   gap: 0.5rem; // gap-2
 }
 
-.folder-row__expand-button {
-  // Additional styles for expand button if needed
+.folder-row__expand-text {
   flex-shrink: 0;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  color: #6b7280;
+  padding: 0.25rem;
+  min-width: 20px;
+  text-align: center;
+  border-radius: 0.25rem;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: #f3f4f6;
+    color: #374151;
+  }
 }
 
 .folder-row__title {
@@ -81,15 +96,31 @@
 .folder-row__actions {
   display: flex;
   align-items: center;
-  gap: 0.5rem; // gap-2
+  gap: 0.5rem;
+  justify-content: flex-end;
 }
 
-.folder-row__action-button {
-  // Base styles for action buttons
-  padding: 0.25rem;
+.folder-row__action-text {
+  cursor: pointer;
+  font-size: 0.7rem;
+  color: #6b7280;
+  padding: 0.2rem 0.3rem;
   border-radius: 0.25rem;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  white-space: nowrap;
+
+  &:hover {
+    background-color: #f3f4f6;
+    color: #374151;
+  }
 
   &--danger {
-    color: #dc2626; // text-red-600
+    color: #dc2626;
+
+    &:hover {
+      background-color: #fef2f2;
+      color: #b91c1c;
+    }
   }
 }
