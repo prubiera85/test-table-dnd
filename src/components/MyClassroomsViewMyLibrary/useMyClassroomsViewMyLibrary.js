@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from 'react';
-import { folderApi, contentApi } from '../api/mockApi';
-import { transformBackendData } from './useTableData';
+import { folderApi, contentApi } from '../../api/mockApi';
+import { transformBackendData } from '../../hooks/useTableData';
 
 /**
  * Hook for MyClassroomsViewMyLibrary component to manage library data and folder operations

@@ -1,8 +1,8 @@
 import React from 'react';
 import { useDroppable } from '@dnd-kit/core';
-import { ExpandIcon, EditIcon, DeleteIcon } from '../Icons';
-import { classNames } from '../../utils/classNames';
-import Button from '../Button/Button';
+import { ExpandIcon, EditIcon, DeleteIcon } from '../../Icons';
+import { classNames } from '../../../utils/classNames';
+import Button from '../../Button';
 import './FolderRow.scss';
 
 /**
@@ -10,14 +10,14 @@ import './FolderRow.scss';
  * @param {Object} props - Component props
  * @param {Object} props.folder - Folder data
  * @param {boolean} props.isExpanded - Whether the folder is expanded
- * @param {Function} props.onToggleExpand - Function to toggle folder expansion
+ * @param {Function} props.onToggle - Function to toggle folder expansion
  * @param {Function} props.onRename - Function to open rename modal
  * @param {Function} props.onDelete - Function to open delete modal
  */
 const FolderRow = ({
   folder,
   isExpanded,
-  onToggleExpand,
+  onToggle,
   onRename,
   onDelete,
 }) => {
@@ -26,7 +26,7 @@ const FolderRow = ({
   });
 
   const handleRowClick = () => {
-    onToggleExpand();
+    onToggle();
   };
 
   const handleActionClick = (event, action) => {
@@ -48,7 +48,7 @@ const FolderRow = ({
         <div className="folder-row__container">
           <Button
             variant="icon"
-            onClick={(e) => handleActionClick(e, onToggleExpand)}
+            onClick={(e) => handleActionClick(e, onToggle)}
             ariaLabel={isExpanded ? 'Collapse folder' : 'Expand folder'}
             className="folder-row__expand-button"
           >

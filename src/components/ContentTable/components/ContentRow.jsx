@@ -1,6 +1,6 @@
 import { useDraggable } from '@dnd-kit/core';
-import { ContentIcon, DragIcon } from '../Icons';
-import { classNames } from '../../utils/classNames';
+import { ContentIcon, DragIcon } from '../../Icons';
+import { classNames } from '../../../utils/classNames';
 import './ContentRow.scss';
 
 /**

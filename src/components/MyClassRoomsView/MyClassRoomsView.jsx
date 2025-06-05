@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../Header';
 import { MyClassroomsViewMyLibrary } from '../MyClassroomsViewMyLibrary';
-import { useMyClassRoomsView } from '../../hooks/useMyClassRoomsView';
+import { useMyClassRoomsView } from './useMyClassRoomsView';
 import './MyClassRoomsView.scss';
 
 /**

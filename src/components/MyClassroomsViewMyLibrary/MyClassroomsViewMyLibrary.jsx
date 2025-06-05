@@ -6,7 +6,7 @@ import ErrorState from '../ErrorState';
 import RenameFolderModal from '../RenameFolderModal';
 import DeleteFolderModal from '../DeleteFolderModal';
 import CreateFolderModal from '../CreateFolderModal';
-import { useMyClassroomsViewMyLibrary } from '../../hooks/useMyClassroomsViewMyLibrary';
+import { useMyClassroomsViewMyLibrary } from './useMyClassroomsViewMyLibrary';
 import { useContentTable } from '../ContentTable/useContentTable';
 import './MyClassroomsViewMyLibrary.scss';
 

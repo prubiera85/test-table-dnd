@@ -12,8 +12,8 @@ import {
 } from "@dnd-kit/core";
 import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 
-import FolderRow from "../FolderRow";
-import ContentRow from "../ContentRow";
+import FolderRow from "./components/FolderRow";
+import ContentRow from "./components/ContentRow";
 import './ContentTable.scss';
 
 /**
